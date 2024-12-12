@@ -1,0 +1,54 @@
+@startuml
+
+class Medic {
+  - std::wstring name
+  + Medic(std::wstring name)
+  + void doAssignment(Patient *patient, int assignmentId)
+  + std::wstring getName() const
+}
+
+class Doctor {
+  + Doctor(const std::wstring &name)
+  + void addAssignment(Patient *patient, Assignment *assignment)
+}
+
+class Nurse {
+  + Nurse(const std::wstring &name)
+}
+
+class Patient {
+  - std::wstring name
+  - std::vector<Assignment *> assignments
+  - bool isDischarged
+  + Patient(const std::wstring& name)
+  + void discharge(const std::wstring& cause)
+  + void setAssignmentDone(int assignmentId)
+  + void putNewAssignment(Assignment *assignment)
+  + const std::wstring &getName() const
+}
+
+class Assignment {
+  - int id
+  - AssignmentType type
+  - std::wstring description
+  - bool isDone
+  + Assignment(int id, AssignmentType type, std::wstring description)
+  + int getId() const
+  + void setDone()
+  + std::wstring getType() const
+  + const std::wstring &getDescription()
+}
+
+enum AssignmentType {
+  PROCEDURE
+  MEDICINE
+  OPERATION
+}
+
+Medic <|-- Doctor
+Medic <|-- Nurse
+Patient "1" *-- "*" Assignment
+Medic "*" -- "*" Patient
+AssignmentType <|-- Assignment
+
+@enduml

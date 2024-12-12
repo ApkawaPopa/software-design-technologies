@@ -1,0 +1,13 @@
+@startuml
+
+actor Doctor as D
+actor Nurse as N
+
+participant Patient as P
+
+D -> P: добавить назначение
+D -> P: выполнить назначение
+N -> P: выполнить назначение
+P -> P: выписать пациента
+
+@enduml
