@@ -1,0 +1,39 @@
+@startuml
+actor пользователь
+participant main
+participant консоль
+participant ConsoleLogger
+participant InsuranceCompany
+participant OilGasCompany
+participant Factory
+participant Organization
+participant Productive
+
+пользователь -> main: запуск приложения
+
+main -> консоль: создание
+main -> InsuranceCompany: создание
+main -> OilGasCompany: создание
+main -> Factory: создание
+
+main -> Organization: вызов displayInfo(logger)
+Organization -> InsuranceCompany: вызов displayInfo(logger)
+InsuranceCompany -> ConsoleLogger: вызов display(message)
+консоль <- ConsoleLogger: вывод данных организации
+
+main -> Organization: вызов displayInfo(logger)
+Organization -> OilGasCompany: вызов displayInfo(logger)
+OilGasCompany -> ConsoleLogger: вызов display(message)
+консоль <- ConsoleLogger: вывод данных организации
+
+main -> Organization: вызов displayInfo(logger)
+Organization -> Factory: вызов displayInfo(logger)
+Factory -> ConsoleLogger: вызов display(message)
+консоль <- ConsoleLogger: вывод данных организации
+
+main -> Productive: вызов displayAmount(logger)
+Productive -> Factory: вызов displayAmount(logger)
+Factory -> ConsoleLogger: вызов display(message)
+консоль <- ConsoleLogger: вывод количества произведенных продуктов
+
+@enduml

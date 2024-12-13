@@ -1,0 +1,37 @@
+@startuml
+interface Logger {
+    +void display(const char* message) const
+}
+
+interface Organization {
+    +void displayInfo(Logger& logger) const
+}
+
+interface Productive {
+    +void displayAmount(Logger& logger) const
+}
+
+class ConsoleLogger {
+    +void display(const char* message) const
+}
+
+class InsuranceCompany {
+    +void displayInfo(Logger& logger) const
+}
+
+class OilGasCompany {
+    +void displayInfo(Logger& logger) const
+}
+
+class Factory {
+    -int productAmount
+    +void displayInfo(Logger& logger) const
+    +void displayAmount(Logger& logger) const
+}
+
+Logger <|-- ConsoleLogger
+Organization <|-- InsuranceCompany
+Organization <|-- OilGasCompany
+Organization <|-- Factory
+Productive <|-- Factory
+@enduml
