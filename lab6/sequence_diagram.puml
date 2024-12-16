@@ -1,0 +1,10 @@
+@startuml
+actor Client
+Client -> "Controller::GasTankAdapterController" : modifyGasTankMass(massDifference)
+"Controller::GasTankAdapterController" -> "Model::GasTankAdapter" : modifMass(dm)
+"Model::GasTankAdapter" -> "Model::GasTank" : mass += dm
+"Model::GasTank" -> "View::GasTankView" : notifyUpdate()
+"View::GasTankView" -> "View::GasTankView" : update()
+"Model::GasTankAdapter" -> "View::GasTankAdapterView" : notifyUpdate()
+"View::GasTankAdapterView" -> "View::GasTankAdapterView" : update()
+@enduml

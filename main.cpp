@@ -50,7 +50,7 @@ void printFileContents(const fs::path& filePath) {
 }
 
 void printFiles(const string &end) {
-    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab5)";
+    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab6)";
     string root = "lab5";
 
     for (const auto& entry : fs::directory_iterator(path)) {

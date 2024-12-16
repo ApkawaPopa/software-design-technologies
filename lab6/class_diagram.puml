@@ -1,0 +1,56 @@
+@startuml
+
+interface Observer {
+  + update(): void
+}
+
+class Observable {
+  + addObserver(observer: Observer): void
+  + notifyUpdate(): void
+  # observers: vector<Observer *>
+}
+
+class Model::GasTank {
+  + getPressure(t: int): double
+  + amountOfMatter(): double
+  + toString(): wstring
+  - volume: double
+  - mass: double
+  - molar: double
+  - R: const double
+}
+
+class Model::GasTankAdapter {
+  + calculateDp(t0: int, dt: int): double
+  + modifMass(dm: double): void
+  + getData(): wstring
+  - gasTank: GasTank *
+}
+
+class View::GasTankView {
+  + update(): void
+  - model: Model::GasTank *
+}
+
+class View::GasTankAdapterView {
+  + update(): void
+  - model: Model::GasTankAdapter *
+}
+
+class Controller::GasTankAdapterController {
+  + modifyGasTankMass(massDifference: double): void
+  - model: Model::GasTankAdapter *
+  - view: View::GasTankAdapterView *
+}
+
+Observer <|.. View::GasTankView
+Observer <|.. View::GasTankAdapterView
+Observable <|-- Model::GasTank
+Observable <|-- Model::GasTankAdapter
+Model::GasTank *-- Model::GasTankAdapter
+Model::GasTank *-- View::GasTankView
+Model::GasTankAdapter *-- View::GasTankAdapterView
+Controller::GasTankAdapterController *-- Model::GasTankAdapter
+Controller::GasTankAdapterController *-- View::GasTankAdapterView
+
+@enduml
