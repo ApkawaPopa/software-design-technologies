@@ -1,0 +1,32 @@
+@startuml
+actor Client
+
+participant GasTank
+participant GasTankAdapter
+
+Client -> GasTank : создать объект
+
+Client -> GasTank : getPressure(t)
+Client <- GasTank : передать значение давления в баллоне при температуре t
+
+Client -> GasTank : amountOfMatter()
+Client <- GasTank : передать количество вещества в баллоне
+
+Client -> GasTank : toString()
+Client <- GasTank : передать данные баллона в виде строки
+
+Client -> GasTankAdapter : создать значение на основе существующего баллона
+
+Client -> GasTankAdapter : calculateDp(t0, dt)
+GasTankAdapter -> GasTank : getPressure(t0)
+GasTankAdapter -> GasTank : getPressure(t0 + dt)
+Client <- GasTankAdapter : передать изменение давления при начальной температуре t0 и изменении температуры dt
+
+Client -> GasTankAdapter : modifMass(dm)
+GasTankAdapter -> GasTank : mass += dm
+
+Client -> GasTankAdapter : getData()
+GasTankAdapter -> GasTank : toString()
+Client <- GasTankAdapter : передать данные баллона в виде строки
+
+@enduml

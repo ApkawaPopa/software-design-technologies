@@ -1,0 +1,44 @@
+@startuml
+
+class Article {
+  - std::wstring title
+  - std::wstring authors
+  - std::wstring text
+  - std::wstring hash
+}
+
+interface ArticleBuilder {
+  + void reset()
+  + void buildTitle(const std::wstring& title)
+  + void buildAuthors(const std::vector<std::wstring>& authors)
+  + void buildText(const std::wstring& text)
+  + void buildHash(const std::wstring& hash)
+  + Article getResult()
+}
+
+class XmlArticleBuilder {
+  - Article article
+  + void reset()
+  + void buildTitle(const std::wstring& title)
+  + void buildAuthors(const std::vector<std::wstring>& authors)
+  + void buildText(const std::wstring& text)
+  + void buildHash(const std::wstring& hash)
+  + Article getResult()
+}
+
+class ArticleDirector {
+  - ArticleBuilder* builder
+  + ArticleDirector(ArticleBuilder* builder)
+  + void construct(const std::wstring& title, const std::vector<std::wstring>& authors, const std::wstring& text, const std::wstring& hash)
+}
+
+class Exception {
+  - std::wstring message
+  + Exception(const std::wstring& message)
+}
+
+ArticleBuilder <|-. XmlArticleBuilder
+ArticleDirector *-- ArticleBuilder
+XmlArticleBuilder *-- Article
+
+@enduml

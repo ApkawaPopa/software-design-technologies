@@ -3,6 +3,8 @@ project(software_design_technologies)
 
 set(CMAKE_CXX_STANDARD 20)
 
+add_executable(software_design_technologies main.cpp)
+
 add_subdirectory(lab1)
 add_subdirectory(lab2)
 add_subdirectory(lab3)

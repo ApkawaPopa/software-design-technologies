@@ -1,0 +1,19 @@
+@startuml
+class GasTank {
+    +volume: double
+    +mass: double
+    +molar: double
+    +getPressure(t: int): double
+    +amountOfMatter(): double
+    +toString(): std::wstring
+}
+
+class GasTankAdapter {
+    -gasTank: GasTank
+    +calculateDp(t0: int, dt: int): double
+    +modifMass(dm: double): void
+    +getData(): std::wstring
+}
+
+GasTankAdapter --> GasTank
+@enduml

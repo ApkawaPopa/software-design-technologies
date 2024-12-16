@@ -1,0 +1,42 @@
+@startuml
+abstract class Tour {
+    +countryMultiplier: std::unordered_map<std::wstring, double>
+    +tiketCost: int
+    +durationMultiplier: double
+    +hotelMultiplier: double
+    +foodTypeMultiplier: double
+    +calculateCost(country: std::wstring, duration: int, hotelStars: int, foodType: int): int
+}
+
+class BeachTour
+class ExcursionTour
+class SkiTour
+
+Tour <|-- BeachTour
+Tour <|-- ExcursionTour
+Tour <|-- SkiTour
+
+class TravelFacade {
+    -tours: std::array<Tour, 3>
+    +isCountryAvailable(country: std::wstring): bool
+    +calculateCost(country: std::wstring, duration: int, hotelStars: HotelStars, foodType: FoodType): double
+}
+
+enum HotelStars {
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+}
+
+enum FoodType {
+    TWO_TIMES = 1
+    THREE_TIMES = 2
+    ALL_INCLUSIVE = 3
+}
+
+TravelFacade --> HotelStars
+TravelFacade --> FoodType
+TravelFacade --> Tour
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+actor Client
+
+participant BeachTour
+participant ExcursionTour
+participant SkiTour
+participant TravelFacade
+
+Client -> TravelFacade : isCountryAvailable(country)
+activate TravelFacade
+
+TravelFacade -> BeachTour : проверить, доступна ли пляжная путевка в страну country
+TravelFacade -> ExcursionTour : проверить, доступна ли экскурсия в страну country
+TravelFacade -> SkiTour : проверить, доступна ли горнолыжная путевка в страну country
+alt Страна country доступна
+    Client <- TravelFacade : вернуть true
+else Страна country недоступна
+    Client <- TravelFacade : вернуть false
+end
+
+deactivate TravelFacade
+
+Client -> TravelFacade : calculateCost(country, duration, hotelStars, foodType)
+
+activate TravelFacade
+
+alt Страна country доступна
+    TravelFacade -> Client : вернуть стоимость путевки в страну country на duration дней в отеле hotelStars звезд и питанием foodType
+else Страна country недоступна
+    TravelFacade -> Client : выбросить исключение
+end
+
+deactivate TravelFacade
+
+@enduml
