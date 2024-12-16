@@ -1,0 +1,39 @@
+@startuml
+class LiftState {
+    - Lift *lift
+    + LiftState(Lift *lift)
+    + handleCall()
+    + handleVisit()
+    + handleLoad()
+    + handleUnload()
+    + handlePowerOn()
+    + handlePowerOff()
+}
+
+class Lift {
+    - int currentFloor
+    - std::queue<int> targetFloors
+    - int currentWeight
+    - int maxWeight
+    - LiftState *state
+    + Lift()
+    + call(int floor)
+    + visitNextTarget()
+    + load(int weight)
+    + unload(int weight)
+    + turnPowerOn()
+    + turnPowerOff()
+    + setState(LiftState *state)
+    + int getCurrentWeight()
+    + int getMaxWeight()
+    + bool hasTargetFloor()
+}
+
+LiftState <|- Rest
+LiftState <|-- Moving
+LiftState <|-- Overloaded
+LiftState <|-- Powerless
+LiftState <|-- Crashed
+
+Lift <-> LiftState
+@enduml

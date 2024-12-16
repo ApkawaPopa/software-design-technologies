@@ -1,0 +1,37 @@
+@startuml
+
+actor User
+participant Lift
+participant LiftState
+participant Rest
+participant Moving
+
+User -> Lift : вызвать лифт на 10 этаж
+Lift -> LiftState : обработать состояние лифта
+LiftState -> Rest : обработать состояние лифта
+Rest -> Lift : сменить состояние на Moving
+
+Lift -> Lift : посетить следующий в очереди этаж
+Lift -> LiftState : обработать состояние лифта
+LiftState -> Moving : обработать состояние лифта
+Moving -> Lift : сменить состояние на Rest
+
+User -> Lift : войти в лифт
+Lift -> LiftState : обработать состояние лифта
+Rest <- LiftState : обработать состояние лифта
+
+User -> Lift : вызвать лифт на 1 этаж
+Lift -> LiftState : обработать состояние лифта
+LiftState -> Rest : обработать состояние лифта
+Rest -> Lift : сменить состояние на Moving
+
+Lift -> Lift : посетить следующий в очереди этаж
+Lift -> LiftState : обработать состояние лифта
+LiftState -> Moving : обработать состояние лифта
+Moving -> Lift : сменить состояние на Rest
+
+User -> Lift : выйти из лифта
+Lift -> LiftState : обработать состояние лифта
+Rest <- LiftState : обработать состояние лифта
+
+@enduml

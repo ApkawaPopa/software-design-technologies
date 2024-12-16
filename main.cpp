@@ -50,12 +50,13 @@ void printFileContents(const fs::path& filePath) {
 }
 
 void printFiles(const string &end) {
-    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab4\facade)";
-    string root = "facade";
+    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab5)";
+    string root = "lab5";
 
     for (const auto& entry : fs::directory_iterator(path)) {
         if (fs::is_regular_file(entry.path()) and entry.path().string().ends_with(end)) {
-            out << L"\\subsection*{" << entry.path().wstring().substr(path.size() + 1 - (root.size() + 1)).replace(root.size(), 1, L"/") << L"}\n\n";
+//            out << L"\\subsection*{" << entry.path().wstring().substr(path.size() + 1 - (root.size() + 1)).replace(root.size(), 1, L"/") << L"}\n\n";
+            out << L"\\subsection*{" << entry.path().wstring().substr(path.size() + 1) << L"}\n\n";
             out << "\\begin{lstlisting}\n";
             printFileContents(entry.path());
             out << "\\end{lstlisting}\n\n";
