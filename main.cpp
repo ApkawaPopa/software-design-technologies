@@ -50,7 +50,7 @@ void printFileContents(const fs::path& filePath) {
 }
 
 void printFiles(const string &end) {
-    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab6)";
+    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab1)";
     string root = "lab5";
 
     for (const auto& entry : fs::directory_iterator(path)) {
@@ -70,7 +70,7 @@ int main() {
     out = wofstream(R"(C:\Users\ark13\MPU\software-design-technologies\output.txt)");
     out.imbue(std::locale(out.getloc(), new std::codecvt_utf8<wchar_t>));
 
-    for (auto c : L"абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ") {
+    for (auto c : L"абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ№") {
         russian.insert(c);
     }
 

@@ -1,5 +1,120 @@
-#include "Doctor.h"
-#include "Nurse.h"
+#include <iostream>
+#include <vector>
+
+void log(const std::wstring &&message) {
+    std::wcout << message << std::endl;
+}
+
+enum AssignmentType {
+    PROCEDURE,
+    MEDICINE,
+    OPERATION
+};
+
+class Assignment {
+    int id;
+    AssignmentType type;
+    std::wstring description;
+    bool isDone;
+
+public:
+    explicit Assignment(int id, AssignmentType type, const std::wstring &description) :
+            id(id), type(type), description(description), isDone(false) {}
+
+    int getId() {
+        return id;
+    }
+
+    void setDone() {
+        isDone = true;
+    }
+
+    std::wstring getType() {
+        switch (type) {
+            case AssignmentType::PROCEDURE:
+                return L"'Процедура'";
+            case AssignmentType::MEDICINE:
+                return L"'Лекарство'";
+            case AssignmentType::OPERATION:
+                return L"'Операция'";
+        }
+    }
+
+    std::wstring getDescription() {
+        return description;
+    }
+};
+
+class Patient {
+    std::wstring name;
+    std::vector<Assignment *> assignments;
+    bool isDischarged;
+
+public:
+    explicit Patient(const std::wstring &name) : name(name), assignments(), isDischarged(false) {
+        log(L"Добавлен пациент " + name);
+    }
+
+    void discharge(const std::wstring &cause) {
+        log(L"Пациент " + name + L" выписан по причине: " + cause);
+        isDischarged = true;
+    }
+
+    void setAssignmentDone(int assignmentId) {
+        for (auto &assignment: assignments) {
+            if (assignment->getId() == assignmentId) {
+                assignment->setDone();
+                return;
+            }
+        }
+    }
+
+    void putNewAssignment(Assignment *assignment) {
+        assignments.push_back(assignment);
+    }
+
+    std::wstring getName() {
+        return name;
+    }
+};
+
+class Medic {
+protected:
+    std::wstring name;
+
+public:
+    explicit Medic(const std::wstring &name) : name(name) {}
+
+    void doAssignment(Patient *patient, int assignmentId) {
+        log(L"Медицинский работник " + name + L" выполняет назначение с id=" + std::to_wstring(assignmentId));
+        patient->setAssignmentDone(assignmentId);
+    }
+
+    std::wstring getName() {
+        return name;
+    }
+};
+
+class Doctor : public Medic {
+public:
+    explicit Doctor(const std::wstring &name) : Medic(name) {
+        log(L"Добавлен доктор " + name);
+    }
+
+    void addAssignment(Patient *patient, Assignment *assignment) {
+        log(L"Доктор " + name + L" назначает пациенту " + patient->getName() + L" процедуру с типом "
+            + assignment->getType() + L": " + assignment->getDescription());
+        patient->putNewAssignment(assignment);
+    }
+};
+
+class Nurse : public Medic {
+public:
+    explicit Nurse(const std::wstring &name) : Medic(name) {
+        log(L"Добавлена медсестра " + name);
+    }
+};
+
 
 int main() {
     setlocale(LC_ALL, "Russian");
