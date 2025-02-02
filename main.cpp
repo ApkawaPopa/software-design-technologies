@@ -22,7 +22,8 @@ bool containsRussian(wstring &s) {
 }
 
 wstring escapedLine(wstring &line) {
-    wstring escapePart[2] = {L"§\\textcolor{red}{", L"}§"};
+    line += ' ';
+    wstring escapePart[2] = {L"§\\textcolor{gray}{", L"}§"};
 
     wstring escaped;
     bool streak = false;
@@ -50,7 +51,7 @@ void printFileContents(const fs::path& filePath) {
 }
 
 void printFiles(const string &end) {
-    string path = R"(C:\Users\ark13\MPU\software-design-technologies\lab1)";
+    string path = R"(C:\Users\ark13\MPU\software-design-technologies\exam\visitor)";
     string root = "lab5";
 
     for (const auto& entry : fs::directory_iterator(path)) {

@@ -1,0 +1,28 @@
+@startuml
+
+abstract class Button {
+    + {abstract} clone(): Button*
+    + {abstract} render(): void
+    + setColor(color: string): void
+    + setSize(width: int, height: int): void
+}
+
+class ConcreteButton {
+    - color: string
+    - width: int
+    - height: int
+    + clone(): Button*
+    + render(): void
+}
+
+class PrototypeStorage {
+    - prototypes: Map<string, Button*>
+    + addPrototype(key: string, proto: Button*): void
+    + getPrototype(key: string): Button*
+    + ~PrototypeStorage(): деструктор
+}
+
+Button <|-- ConcreteButton
+PrototypeStorage o-- Button : хранит прототипы
+
+@enduml

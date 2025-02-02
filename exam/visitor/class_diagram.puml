@@ -1,0 +1,53 @@
+@startuml
+interface Shape {
+    + {abstract} accept(Visitor&)
+}
+
+class Circle {
+    - radius: double
+    + getRadius(): double
+}
+
+class Rectangle {
+    - width: double
+    - height: double
+    + getWidth(): double
+    + getHeight(): double
+}
+
+class Triangle {
+    - a: double
+    - b: double
+    - c: double
+    + getA(): double
+    + getB(): double
+    + getC(): double
+}
+
+interface Visitor {
+    + {abstract} visit(Circle&)
+    + {abstract} visit(Rectangle&)
+    + {abstract} visit(Triangle&)
+}
+
+class AreaVisitor {
+    - area: double
+    + getResult(): double
+}
+
+class PerimeterVisitor {
+    - perimeter: double
+    + getResult(): double
+}
+
+Shape <|-- Circle
+Shape <|-- Rectangle
+Shape <|-- Triangle
+
+Visitor <|-- AreaVisitor
+Visitor <|-- PerimeterVisitor
+
+Circle --> Visitor : accept
+Rectangle --> Visitor : accept
+Triangle --> Visitor : accept
+@enduml
